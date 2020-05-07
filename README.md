@@ -3,7 +3,7 @@
 #### Installation
 
 ```
-npm i sequelize-swagger-generator
+npm i @hpaulowicz/sequelize-swagger-generator
 ```
 
 #### Usage
@@ -11,7 +11,7 @@ npm i sequelize-swagger-generator
 ```
 const express = require('express');
 const app = express();
-const expressSwagger = require('sequelize-swagger-generator');
+const expressSwagger = require('@hpaulowicz/sequelize-swagger-generator');
 const { Sequelize, DataTypes, Model } = require('sequelize');
 
 const sequelize = new Sequelize('sqlite::memory');
