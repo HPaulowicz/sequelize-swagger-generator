@@ -1,12 +1,15 @@
 {
-  "name": "sequelize-swagger-generator",
-  "version": "1.1.17",
+  "name": "@hpaulowicz/sequelize-swagger-generator",
+  "version": "1.0.0",
   "description": "Generates swagger.json based on Sequelize models",
   "main": "index.js",
   "scripts": {},
   "repository": {
     "type": "git",
-    "url": "https://github.com/hpaulowicz/sequelize-swagger-generator.git"
+    "url": "git+https://github.com/hpaulowicz/sequelize-swagger-generator.git"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   },
   "keywords": [
     "express",
