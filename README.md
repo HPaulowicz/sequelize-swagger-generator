@@ -1,9 +1,9 @@
-### Express Swagger Generator
+### Sequelize Swagger Generator
 
 #### Installation
 
 ```
-npm i express-swagger-generator --save-dev
+npm i sequelize-swagger-generator
 ```
 
 #### Usage
@@ -11,7 +11,26 @@ npm i express-swagger-generator --save-dev
 ```
 const express = require('express');
 const app = express();
-const expressSwagger = require('express-swagger-generator')(app);
+const expressSwagger = require('sequelize-swagger-generator');
+const { Sequelize, DataTypes, Model } = require('sequelize');
+
+const sequelize = new Sequelize('sqlite::memory');
+
+class User extends Model {}
+
+User.init({
+    firstName: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    lastName: {
+        type: DataTypes.STRING(10),
+    },
+}, {
+  // Other model options go here
+  sequelize, // We need to pass the connection instance
+  modelName: 'User' // We need to choose the model name
+});
 
 let options = {
     swaggerDefinition: {
@@ -36,25 +55,22 @@ let options = {
             }
         }
     },
-    basedir: __dirname, //app absolute path
+    basedir: process.cwd(), //app absolute path
     files: ['./routes/**/*.js'] //Path to the API handle folder
 };
-expressSwagger(options)
-app.listen(3000);
-```
+const swaggerJSON = expressSwagger(sequelize.models, options);
 
-Open http://<app_host>:<app_port>/api-docs in your browser to view the documentation.
+```
 
 #### How to document the API
 
 ```
 /**
  * This function comment is parsed by doctrine
- * @route GET /api
+ * @route POST /api
  * @group foo - Operations about user
- * @param {string} email.query.required - username or email - eg: user@domain
- * @param {string} password.query.required - user's password.
- * @returns {object} 200 - An array of user info
+ * @param {User.model} user.body.required - Where User is the name of the Sequelize User model
+ * @returns {User.model} 200 - User object
  * @returns {Error}  default - Unexpected error
  */
 exports.foo = function() {}
@@ -112,4 +128,4 @@ For model definitions:
 
 #### More
 
-This module is based on [express-swaggerize-ui](https://github.com/pgroot/express-swaggerize-ui) and [Doctrine-File](https://github.com/researchgate/doctrine-file)
+This module is a fork of [express-swagger-generator](https://github.com/pgroot/express-swagger-generator) 
