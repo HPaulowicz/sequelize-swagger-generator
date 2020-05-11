@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/hpaulowicz/sequelize-swagger-generator",
   "dependencies": {
+    "deepmerge": "^4.2.2",
     "doctrine": "^2.0.0",
     "doctrine-file": "^1.0.2",
     "express-swaggerize-ui": "^1.0.3",
